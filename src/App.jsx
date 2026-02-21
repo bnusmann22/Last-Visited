@@ -1,5 +1,12 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter, NavLink, Route, Routes, Outlet } from 'react-router-dom'
+import {
+  BrowserRouter,
+  NavLink,
+  Route,
+  Routes,
+  Outlet,
+  useNavigate,
+} from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
@@ -9,6 +16,7 @@ function Layout() {
   const [visitCount, setVisitCount] = useState(0)
   const [showWelcome, setShowWelcome] = useState(false)
   const visitLabel = visitCount === 1 ? 'time' : 'times'
+  const navigate = useNavigate()
 
   useEffect(() => {
     const storedCount = Number(localStorage.getItem('lv-visit-count') || 0)
@@ -17,8 +25,10 @@ function Layout() {
     setVisitCount(nextCount)
     if (storedCount === 0) {
       setShowWelcome(true)
+    } else {
+      navigate('/mainstuff', { replace: true })
     }
-  }, [])
+  }, [navigate])
 
   return (
     <div className="app">
