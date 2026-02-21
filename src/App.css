@@ -27,6 +27,21 @@
   padding: 1rem 0 2.5rem;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.visit-pill {
+  background: rgba(76, 143, 122, 0.15);
+  color: var(--sea);
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
 .brand {
   display: flex;
   gap: 1rem;
@@ -218,6 +233,31 @@
 .panel-card li::before {
   content: '•';
   color: var(--accent);
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 27, 22, 0.45);
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  z-index: 10;
+}
+
+.modal {
+  background: var(--paper);
+  border-radius: 24px;
+  padding: 2rem;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 30px 60px -40px var(--shadow);
+  animation: floatIn 0.5s ease both;
+}
+
+.modal h3 {
+  font-family: 'Fraunces', serif;
+  margin: 0.5rem 0 0.75rem;
 }
 
 .section {
