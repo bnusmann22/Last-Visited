@@ -331,6 +331,13 @@
   color: var(--muted);
 }
 
+.footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .footer-links {
   display: flex;
   gap: 1.5rem;

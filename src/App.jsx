@@ -6,6 +6,7 @@ import {
   Routes,
   Outlet,
   useNavigate,
+  useLocation,
 } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home.jsx'
@@ -17,6 +18,14 @@ function Layout() {
   const [showWelcome, setShowWelcome] = useState(false)
   const visitLabel = visitCount === 1 ? 'time' : 'times'
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleResetVisits = () => {
+    localStorage.removeItem('lv-visit-count')
+    setVisitCount(1)
+    setShowWelcome(true)
+    navigate('/', { replace: true })
+  }
 
   useEffect(() => {
     const storedCount = Number(localStorage.getItem('lv-visit-count') || 0)
@@ -25,10 +34,14 @@ function Layout() {
     setVisitCount(nextCount)
     if (storedCount === 0) {
       setShowWelcome(true)
-    } else {
-      navigate('/mainstuff', { replace: true })
     }
   }, [navigate])
+
+  useEffect(() => {
+    if (visitCount > 1 && location.pathname === '/') {
+      navigate('/mainstuff', { replace: true })
+    }
+  }, [location.pathname, navigate, visitCount])
 
   return (
     <div className="app">
@@ -63,12 +76,17 @@ function Layout() {
 
       <footer className="site-footer">
         <p>Built as a placeholder site for testing layout decisions.</p>
-        <div className="footer-links">
-          <NavLink to="/" end>
-            Back to top
-          </NavLink>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/mainstuff">Main Stuff</NavLink>
+        <div className="footer-actions">
+          <div className="footer-links">
+            <NavLink to="/" end>
+              Back to top
+            </NavLink>
+            <NavLink to="/about">About</NavLink>
+            <NavLink to="/mainstuff">Main Stuff</NavLink>
+          </div>
+          <button className="ghost" onClick={handleResetVisits}>
+            Reset visit history
+          </button>
         </div>
       </footer>
 
